@@ -7,15 +7,16 @@ body {
     margin: 0;
 }
 
+/* Main container */
 .center {
     display: flex;
     flex-direction: column;
-    justify-content: center;  /* vertical center */
-    align-items: center;      /* horizontal center */
+    justify-content: center;  /* vertical centering ONLY */
     height: 100vh;
-    text-align: center;
+    padding-left: 10px;       /* optional: small space from left edge */
 }
 
+/* Button */
 .butten {
     height: 40px;
     width: 150px;
@@ -23,8 +24,8 @@ body {
     color: white;
 
     display: flex;
-    align-items: center;
-    justify-content: center;  /* center text inside button */
+    align-items: center;      /* center text inside button vertically */
+    padding-left: 10px;       /* keeps text from touching edge */
 }
 </style>
 </head>
