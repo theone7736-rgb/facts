@@ -1,24 +1,38 @@
-<DOCTYPE html>
-<Html>
+<!DOCTYPE html>
+<html>
 <head>
-<Style>
-    body {
+<style>
+body {
     font-family: Tahoma, Verdana, sans-serif;
-    }
-    .center {
+    margin: 0;
+}
+
+.center {
     display: flex;
-    flex-direction: column;   /* stack text + button */
-    justify-content: center;  /* vertical centering */
-    text-align: center;       /* horizontal centering for text */
-    }
-    .butten {
-    display: flex;
-    height:20px;
-    width:100px;
+    flex-direction: column;
+    justify-content: center;  /* vertical center */
+    align-items: center;      /* horizontal center */
+    height: 100vh;
+    text-align: center;
+}
+
+.butten {
+    height: 40px;
+    width: 150px;
     background-color: blue;
-    }
-</Style>
-<Body>
-<div class="center"><H1>Fun facts </H1></div>
-<div class="center"><div class="butten">Find one out more</div></div>
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* center text inside button */
+}
+</style>
+</head>
+
+<body>
+<div class="center">
+    <h1>Fun facts</h1>
+    <div class="butten">Find out more</div>
+</div>
 </body>
+</html>
