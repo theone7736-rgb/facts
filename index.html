@@ -7,11 +7,13 @@
     }
     .center {
     display: flex;
-    align-items: center;
-    text-align: center;
-    height: 30px;
+    flex-direction: column;   /* stack text + button */
+    justify-content: center;  /* vertical centering */
+    height: 100vh;            /* full page height */
+    text-align: center;       /* horizontal centering for text */
     }
     .butten {
+    display: flex;
     height:20px;
     width:100px;
     background-color: blue;
