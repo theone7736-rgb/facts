@@ -5,22 +5,23 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
+            background: #f5f7fb;
+            color: #111;
             padding: 20px;
         }
 
         .container {
             max-width: 750px;
             margin: auto;
-            background: #1c1c1c;
+            background: #ffffff;
             padding: 20px;
             border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         h1 {
             text-align: center;
-            color: #4fd1ff;
+            color: #0077b6;
         }
 
         input {
@@ -29,48 +30,62 @@
             font-size: 18px;
             margin-bottom: 10px;
             border-radius: 8px;
-            border: none;
+            border: 1px solid #ccc;
+            outline: none;
+            background: #fff;
+            color: #111;
         }
 
         button {
             width: 100%;
             padding: 10px;
             font-size: 18px;
-            background: #4fd1ff;
-            color: black;
+            background: #0077b6;
+            color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
         }
 
+        button:hover {
+            background: #005f8f;
+        }
+
         .output {
             margin-top: 15px;
-            background: #000;
+            background: #f0f0f0;
             padding: 10px;
             border-radius: 8px;
             font-family: monospace;
             max-height: 220px;
             overflow-y: auto;
+            color: #111;
         }
 
         .prime {
-            color: #00ff88;
+            color: #0a8f3c;
             font-weight: bold;
         }
 
         .live {
             margin-top: 15px;
             padding: 10px;
-            background: #222;
-            border-left: 4px solid #4fd1ff;
+            background: #e9f5ff;
+            border-left: 4px solid #0077b6;
+            border-radius: 6px;
         }
 
         .explanation {
             margin-top: 20px;
-            background: #1a1a1a;
+            background: #ffffff;
             padding: 15px;
             border-radius: 10px;
             line-height: 1.6;
+            border: 1px solid #e5e5e5;
+        }
+
+        a {
+            color: #0077b6;
         }
     </style>
 </head>
@@ -78,7 +93,7 @@
 <body>
 
 <div class="container">
-    <h1>Bertrands postulate</h1>
+    <h1>Bertrand's Postulate</h1>
     <div><a href="https://facts.edodnan.com.au">Want to see the rest? Click here.</a></div>
 
     <input id="num" type="number" placeholder="Enter a number n (greater than 1)">
@@ -92,17 +107,11 @@
 
     <div class="explanation">
         <h3>📘 What is "n"?</h3>
-        <p>
-            <b>n</b> is simply the number you choose to start with.
-        </p>
+        <p><b>n</b> is simply the number you choose to start with.</p>
 
-        <p>
-            For example, if you enter <b>n = 10</b>, the program will check all numbers between:
-        </p>
+        <p>If you enter <b>n = 10</b>, the program checks:</p>
 
-        <p>
-            👉 <b>10 and 20 (which is 2 × 10)</b>
-        </p>
+        <p>👉 <b>10 and 20 (which is 2 × 10)</b></p>
 
         <h3>📘 The theorem</h3>
         <p>
@@ -110,23 +119,15 @@
         </p>
 
         <h3>🔍 What is a prime?</h3>
-        <p>
-            A prime number is a number greater than 1 that is only divisible by:
-        </p>
-        <ul>
-            <li>1</li>
-            <li>itself</li>
-        </ul>
+        <p>A prime number is only divisible by 1 and itself.</p>
 
         <h3>⚙️ What this shows</h3>
-        <p>
-            The program checks every number between <b>n</b> and <b>2n</b> and highlights the primes in green.
-        </p>
+        <p>The program highlights all primes between <b>n</b> and <b>2n</b>.</p>
     </div>
 </div>
 
 <script>
-const MAX_N = 100000; // 🔒 safety cap
+const MAX_N = 100000;
 
 function isPrime(x) {
     if (x < 2) return false;
@@ -148,7 +149,7 @@ function run() {
     }
 
     if (n > MAX_N) {
-        live.textContent = "⚠️ Number too large. Please enter n ≤ " + MAX_N + " to avoid freezing.";
+        live.textContent = "⚠️ Number too large. Please enter n ≤ " + MAX_N;
         output.innerHTML = "";
         return;
     }
@@ -172,13 +173,9 @@ function run() {
 
     output.innerHTML = html;
 
-    if (primes.length > 0) {
-        live.textContent =
-            "✅ Found " + primes.length + " prime(s) between " + n + " and " + end;
-    } else {
-        live.textContent =
-            "❌ No primes found (this would break the theorem!)";
-    }
+    live.textContent = primes.length > 0
+        ? "✅ Found " + primes.length + " prime(s)"
+        : "❌ No primes found";
 }
 </script>
 
