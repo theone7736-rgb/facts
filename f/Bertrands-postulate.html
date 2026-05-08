@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prime Between N and 2N Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: #1c1c1c;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4fd1ff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background: #4fd1ff;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .output {
+            margin-top: 15px;
+            background: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .prime {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .live {
+            margin-top: 15px;
+            padding: 10px;
+            background: #222;
+            border-left: 4px solid #4fd1ff;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🔢 Prime Between N and 2N</h1>
+
+    <input id="num" type="number" placeholder="Enter a number n (greater than 1)">
+    <button onclick="run()">Check</button>
+
+    <div class="live" id="live">
+        Waiting for input...
+    </div>
+
+    <div class="output" id="output"></div>
+
+    <div class="explanation">
+        <h3>📘 What is "n"?</h3>
+        <p>
+            <b>n</b> is simply the number you choose to start with.
+        </p>
+
+        <p>
+            For example, if you enter <b>n = 10</b>, the program will check all numbers between:
+        </p>
+
+        <p>
+            👉 <b>10 and 20 (which is 2 × 10)</b>
+        </p>
+
+        <h3>📘 The theorem</h3>
+        <p>
+            For every number <b>n > 1</b>, there is always at least one <b>prime number</b> between <b>n</b> and <b>2n</b>.
+        </p>
+
+        <h3>🔍 What is a prime?</h3>
+        <p>
+            A prime number is a number greater than 1 that is only divisible by:
+        </p>
+        <ul>
+            <li>1</li>
+            <li>itself</li>
+        </ul>
+
+        <h3>⚙️ What this shows</h3>
+        <p>
+            The program checks every number between <b>n</b> and <b>2n</b> and highlights the primes in green.
+        </p>
+    </div>
+</div>
+
+<script>
+const MAX_N = 100000; // 🔒 safety cap
+
+function isPrime(x) {
+    if (x < 2) return false;
+    for (let i = 2; i <= Math.sqrt(x); i++) {
+        if (x % i === 0) return false;
+    }
+    return true;
+}
+
+function run() {
+    let n = parseInt(document.getElementById("num").value);
+    let output = document.getElementById("output");
+    let live = document.getElementById("live");
+
+    if (isNaN(n) || n <= 1) {
+        live.textContent = "Please enter n greater than 1.";
+        output.innerHTML = "";
+        return;
+    }
+
+    if (n > MAX_N) {
+        live.textContent = "⚠️ Number too large. Please enter n ≤ " + MAX_N + " to avoid freezing.";
+        output.innerHTML = "";
+        return;
+    }
+
+    let start = n + 1;
+    let end = 2 * n;
+
+    live.textContent = "Checking numbers between " + n + " and " + end + "...";
+
+    let html = "";
+    let primes = [];
+
+    for (let i = start; i <= end; i++) {
+        if (isPrime(i)) {
+            html += "<span class='prime'>" + i + "</span> ";
+            primes.push(i);
+        } else {
+            html += i + " ";
+        }
+    }
+
+    output.innerHTML = html;
+
+    if (primes.length > 0) {
+        live.textContent =
+            "✅ Found " + primes.length + " prime(s) between " + n + " and " + end;
+    } else {
+        live.textContent =
+            "❌ No primes found (this would break the theorem!)";
+    }
+}
+</script>
+
+</body>
+</html>
