@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Paradox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 750px;
+            margin: auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 18px;
+            background: #0046b8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .explanation {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef4ff;
+            border-radius: 10px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .explanation h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Birthday Paradox</h1>
+
+    <p>
+        The birthday paradox shows that in a relatively small group of people,
+        the probability of at least two people sharing a birthday is surprisingly high.
+    </p>
+
+    <input id="people" type="number" value="23" min="2" max="100">
+    <button onclick="calculate()">Calculate Chance</button>
+
+    <div id="result"></div>
+
+    <div class="explanation">
+        <h3>Why does 23 people give about a 50% chance?</h3>
+
+        <p>
+            We assume there are <b>365 possible birthdays</b> (ignoring leap years),
+            and each birthday is equally likely and independent.
+        </p>
+
+        <p>
+            Instead of directly calculating the chance of a match, we calculate the
+            <b>opposite event</b>: that <b>all people have different birthdays</b>,
+            then subtract from 1.
+        </p>
+
+        <h4>Step 1: First person</h4>
+        <p>
+            The first person can have any birthday:
+            probability = 365/365 = 1
+        </p>
+
+        <h4>Step 2: Second person</h4>
+        <p>
+            To avoid a match, they must NOT share the first person's birthday:
+            probability = 364/365
+        </p>
+
+        <h4>Step 3: Third person</h4>
+        <p>
+            They must avoid the two previous birthdays:
+            probability = 363/365
+        </p>
+
+        <h4>General pattern</h4>
+        <p>
+            For the <b>n-th person</b>, the probability they do not match any previous
+            birthday is:
+            <br>
+            (365 − (n − 1)) / 365
+        </p>
+
+        <p>
+            So the probability that <b>all n people have unique birthdays</b> is:
+            <br>
+            (365/365) × (364/365) × (363/365) × ... × (365 − n + 1)/365
+        </p>
+
+        <h4>Why it becomes ~50% at n = 23</h4>
+        <p>
+            As n increases, you multiply many fractions slightly less than 1.
+            This causes the probability of all unique birthdays to shrink quickly.
+        </p>
+
+        <p>
+            At n = 23:
+            <br>
+            probability(all unique) ≈ 0.4927
+            <br>
+            so probability(at least one match) =
+            1 − 0.4927 ≈ 0.5073 (≈ 50%)
+        </p>
+
+        <p>
+            The key reason this grows so fast is that the number of possible pairs is:
+            <br>
+            n(n − 1)/2
+            <br>
+            For 23 people, that is 253 pairs, and each pair is a chance for a match.
+        </p>
+    </div>
+</div>
+
+<script>
+function calculate() {
+    let n = parseInt(document.getElementById("people").value);
+
+    let probabilityNoMatch = 1;
+
+    for (let i = 0; i < n; i++) {
+        probabilityNoMatch *= (365 - i) / 365;
+    }
+
+    let probabilityMatch = (1 - probabilityNoMatch) * 100;
+
+    document.getElementById("result").innerHTML =
+        "Chance of shared birthday: <b>" + probabilityMatch.toFixed(4) + "%</b>";
+}
+</script>
+
+</body>
+</html>
