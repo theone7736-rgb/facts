@@ -46,7 +46,65 @@ border-radius: 15px;
 <a href=""> </a>
 <a href=""> </a>
 </div>
+<div class="card">
+  <div id="question"></div>
+  <div id="answer"></div>
+</div>
+
+<button onclick="prevCard()">⬅</button>
+<button onclick="nextCard()">➡</button>
+
 </body>
+<script>
+const flashcards = [
+  { q: "What is 2 + 2?", a: "4" },
+  { q: "Capital of France?", a: "Paris" }
+];
+
+let index = 0;
+
+function updateCard() {
+  document.getElementById("question").textContent = flashcards[index].q;
+  document.getElementById("answer").textContent = flashcards[index].a;
+}
+
+function nextCard() {
+  index = (index + 1) % flashcards.length;
+  updateCard();
+}
+
+function prevCard() {
+  index = (index - 1 + flashcards.length) % flashcards.length;
+  updateCard();
+}
+
+updateCard();
+</script>
+<script>
+const flashcards = [
+  { q: "What is 2 + 2?", a: "4" },
+  { q: "Capital of France?", a: "Paris" }
+];
+
+let index = 0;
+
+function updateCard() {
+  document.getElementById("question").textContent = flashcards[index].q;
+  document.getElementById("answer").textContent = flashcards[index].a;
+}
+
+function nextCard() {
+  index = (index + 1) % flashcards.length;
+  updateCard();
+}
+
+function prevCard() {
+  index = (index - 1 + flashcards.length) % flashcards.length;
+  updateCard();
+}
+
+updateCard();
+</script>
 <script>
 const links = [
     "https://facts.edodnan.com.au/f/four-fours.html",
