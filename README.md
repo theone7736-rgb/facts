@@ -1,4 +1,4 @@
-# facts
+# Facts
 
 Did you know that you can make almost every number with just four fours?
 
