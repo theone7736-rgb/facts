@@ -6,6 +6,8 @@
 margin-left: 100px;
 font-size: 40px;
 margin-top: 20px;
+display: flex;
+justify-content: center;
 }
 .flashcard{
 display: flex;
@@ -78,8 +80,10 @@ border-radius: 15px;
   <div id="question" class="question"></div>
   <div id="answer" class="answer"></div>
 
-<button class="rightleft" onclick="prevCard()">⬅</button>
-<button class="rightleft" onclick="nextCard()">➡</button>
+<div class="rightleft">
+<button onclick="prevCard()">⬅</button>
+<button onclick="nextCard()">➡</button>
+</div>
 </div>
 </div>
     
