@@ -89,31 +89,6 @@ border-radius: 15px;
 </body>
 <script>
 const flashcards = [
-  { q: "What is 2 + 2?", a: "4" },
-  { q: "Capital of France?", a: "Paris" }
-];
-
-let index = 0;
-
-function updateCard() {
-  document.getElementById("question").textContent = flashcards[index].q;
-  document.getElementById("answer").textContent = flashcards[index].a;
-}
-
-function nextCard() {
-  index = (index + 1) % flashcards.length;
-  updateCard();
-}
-
-function prevCard() {
-  index = (index - 1 + flashcards.length) % flashcards.length;
-  updateCard();
-}
-
-updateCard();
-</script>
-<script>
-const flashcards = [
   { q: "Did you know:", a: "fourty is the only number spelled with letters in alphabetical order?" },
   { q: "Did you know:", a: "every number had an 'e' in it?" }
 ];
