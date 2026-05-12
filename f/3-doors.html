@@ -129,9 +129,9 @@
   <p>Pick a door. Then click again to either stay or switch.</p>
 
   <div id="doors" style="display:flex; justify-content:center; gap:15px; margin:20px 0;">
-    <div class="door" onclick="pickDoor(0)" id="d0">🚪</div>
-    <div class="door" onclick="pickDoor(1)" id="d1">🚪</div>
-    <div class="door" onclick="pickDoor(2)" id="d2">🚪</div>
+    <div class="door" onclick="handleClick(0)" id="d0">🚪</div>
+    <div class="door" onclick="handleClick(1)" id="d1">🚪</div>
+    <div class="door" onclick="handleClick(2)" id="d2">🚪</div>
   </div>
 
   <p id="gameMessage"></p>
@@ -237,7 +237,7 @@ function resetRound() {
     d.style.pointerEvents = "auto";
   }
 
-  document.getElementById("message").innerHTML = "Pick a door.";
+  document.getElementById("gameMessage").innerHTML = "Pick a door.";
 }
 
 function handleClick(index) {
@@ -250,10 +250,10 @@ function handleClick(index) {
     playerPick = index;
     stage = 1;
 
-    // 🔵 highlight selected door (light blue)
+    // highlight selection
     d.style.background = "#7ec8ff";
 
-    document.getElementById("message").innerHTML =
+    document.getElementById("gameMessage").innerHTML =
       `You picked Door ${index + 1}. The host opens a goat...`;
 
     let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
@@ -289,10 +289,10 @@ function handleClick(index) {
 
     if (win) {
       wins++;
-      document.getElementById("message").innerHTML = "🎉 You WIN!";
+      document.getElementById("gameMessage").innerHTML = "🎉 You WIN!";
     } else {
       losses++;
-      document.getElementById("message").innerHTML = "😢 You lose.";
+      document.getElementById("gameMessage").innerHTML = "😢 You lose.";
     }
 
     document.getElementById("stats").innerHTML =
