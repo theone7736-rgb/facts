@@ -251,7 +251,7 @@ function pickDoor(index) {
     stage = 1;
 
     document.getElementById("gameMessage").innerHTML =
-      `You picked Door ${index + 1}. Now the host reveals a goat...`;
+      `You picked Door ${index + 1}. Now the host reveals a goat. Would you like to switch doors or stay? (Click again)`;
 
     // host reveals goat
     let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
