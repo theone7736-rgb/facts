@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monty Hall Explained Clearly</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f7f9ff;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .section {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .doors {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .door {
+      width: 90px;
+      height: 130px;
+      background: #4a6cf7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .highlight {
+      outline: 3px solid orange;
+    }
+
+    .open {
+      background: #ddd;
+      color: black;
+    }
+
+    .result {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .win {
+      color: green;
+    }
+
+    .lose {
+      color: red;
+    }
+
+    .prob {
+      color: #2f4bd1;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🚪 The 3 Doors Problem</h1>
+<p style="text-align:center;">
+(Also called the :contentReference[oaicite:0]{index=0})
+</p>
+
+<!-- SETUP SECTION (from previous version) -->
+<div class="section">
+<h2>🎮 How the Game Works</h2>
+
+<p>Imagine you're on a game show:</p>
+
+<div class="doors">
+  <div class="door">🚪</div>
+  <div class="door">🚪</div>
+  <div class="door">🚪</div>
+</div>
+
+<ul>
+  <li>Behind one door is a <b>car 🚗</b></li>
+  <li>Behind the other two are <b>goats 🐐</b></li>
+</ul>
+
+<p><b>Step 1:</b> You pick a door.</p>
+
+<div class="doors">
+  <div class="door highlight">Your Pick</div>
+  <div class="door">?</div>
+  <div class="door">?</div>
+</div>
+
+<p><b>Step 2:</b> The host (who knows where the car is) opens another door and shows a goat.</p>
+
+<div class="doors">
+  <div class="door highlight">Your Pick</div>
+  <div class="door open">🐐</div>
+  <div class="door">?</div>
+</div>
+
+<p><b>Step 3:</b> You have 2 options:</p>
+<ul>
+  <li>Stay with your original door</li>
+  <li>Switch to the other unopened door</li>
+</ul>
+<p> Switching is always better (wonder why?)</p>
+</div>
+
+<!-- OUTCOMES SECTION -->
+<div class="section">
+<h2>🔍 All Possible Outcomes</h2>
+
+<p>To make this clear, assume you always pick Door 1.</p>
+
+<h3>Case 1: Car is behind Door 1</h3>
+<div class="doors">
+  <div class="door highlight">🚗</div>
+  <div class="door open">🐐</div>
+  <div class="door">🐐</div>
+</div>
+<div class="result">
+Stay → <span class="win">WIN</span> | Switch → <span class="lose">LOSE</span>
+</div>
+
+<h3>Case 2: Car is behind Door 2</h3>
+<div class="doors">
+  <div class="door highlight">🐐</div>
+  <div class="door">🚗</div>
+  <div class="door open">🐐</div>
+</div>
+<div class="result">
+Stay → <span class="lose">LOSE</span> | Switch → <span class="win">WIN</span>
+</div>
+
+<h3>Case 3: Car is behind Door 3</h3>
+<div class="doors">
+  <div class="door highlight">🐐</div>
+  <div class="door open">🐐</div>
+  <div class="door">🚗</div>
+</div>
+<div class="result">
+Stay → <span class="lose">LOSE</span> | Switch → <span class="win">WIN</span>
+</div>
+
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+<h2>📊 What Do We Learn?</h2>
+
+<ul>
+  <li>Staying wins in <span class="prob">1 out of 3</span> cases</li>
+  <li>Switching wins in <span class="prob">2 out of 3</span> cases</li>
+</ul>
+
+<p style="text-align:center; font-size: 20px;">
+👉 Switching is <b>twice as likely</b> to win.
+</p>
+</div>
+
+<!-- WHY IT WORKS -->
+<div class="section">
+<h2>🧠 Why This Happens</h2>
+
+<p>
+When you first pick a door, you only have a <span class="prob">1/3</span> chance of being correct.
+</p>
+
+<p>
+That means there is a <span class="prob">2/3</span> chance the car is in the other two doors.
+</p>
+
+<p>
+The host then removes one wrong door <b>on purpose</b>, leaving all that probability on the remaining door.
+</p>
+
+<p style="text-align:center;">
+<b>Switching = taking the 2/3 chance.</b>
+</p>
+
+</div>
+
+</body>
+</html>
