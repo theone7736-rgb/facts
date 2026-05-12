@@ -7,9 +7,6 @@
 display: flex;
 justify-content: center;
 }
-.around-question {
-height: 90px;
-}
 .flashcard {
 display: flex;
 align-items: center;  /* centers text inside button vertically */
@@ -80,10 +77,8 @@ border-radius: 15px;
 <h1 style="margin-top: 150px; text-align: center; font-size:50px;">Flashcards</h1>
 <div class="flashcard">
 <div class="card">
-<div class="around-question">
-  <div id="question" class="question"></div>
-</div>
-  <div id="answer" class="answer"></div>
+<div id="question" class="question"></div>
+<div id="answer" class="answer"></div>
 
 <div class="rightleft">
 <button style="font-size: 40px; margin-right: 5px;" onclick="prevCard()">⬅</button>
