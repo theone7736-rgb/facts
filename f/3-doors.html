@@ -219,12 +219,12 @@ The host then removes one wrong door <b>on purpose</b>, leaving all that probabi
 let prizeDoor;
 let playerPick = null;
 let revealedDoor = null;
-let stage = 0; // 0 = pick, 1 = decide
+let stage = 0;
 
 let wins = 0;
 let losses = 0;
 
-function newRound() {
+function resetRound() {
   prizeDoor = Math.floor(Math.random() * 3);
   playerPick = null;
   revealedDoor = null;
@@ -237,23 +237,25 @@ function newRound() {
     d.style.pointerEvents = "auto";
   }
 
-  document.getElementById("gameMessage").innerHTML =
-    "Pick a door.";
+  document.getElementById("message").innerHTML = "Pick a door.";
 }
 
-function pickDoor(index) {
+function handleClick(index) {
 
-  const door = document.getElementById("d" + index);
+  const d = document.getElementById("d" + index);
 
   // STEP 1: first pick
   if (stage === 0) {
+
     playerPick = index;
     stage = 1;
 
-    document.getElementById("gameMessage").innerHTML =
-      `You picked Door ${index + 1}. Now the host reveals a goat. Would you like to switch doors or stay? (Click again)`;
+    // 🔵 highlight selected door (light blue)
+    d.style.background = "#7ec8ff";
 
-    // host reveals goat
+    document.getElementById("message").innerHTML =
+      `You picked Door ${index + 1}. The host opens a goat...`;
+
     let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
     revealedDoor = options[Math.floor(Math.random() * options.length)];
 
@@ -264,15 +266,13 @@ function pickDoor(index) {
     return;
   }
 
-  // STEP 2: final decision by clicking a door
+  // STEP 2: final choice
   if (stage === 1) {
 
-    // ignore revealed door clicks
     if (index === revealedDoor) return;
 
     let finalPick = index;
 
-    // reveal all doors
     for (let i = 0; i < 3; i++) {
       const d = document.getElementById("d" + i);
 
@@ -289,20 +289,20 @@ function pickDoor(index) {
 
     if (win) {
       wins++;
-      document.getElementById("gameMessage").innerHTML = "🎉 You WIN!";
+      document.getElementById("message").innerHTML = "🎉 You WIN!";
     } else {
       losses++;
-      document.getElementById("gameMessage").innerHTML = "😢 You lose.";
+      document.getElementById("message").innerHTML = "😢 You lose.";
     }
 
     document.getElementById("stats").innerHTML =
       `Wins: ${wins} | Losses: ${losses}`;
 
-    setTimeout(newRound, 2500);
+    setTimeout(resetRound, 2500);
   }
 }
 
-newRound();
+resetRound();
   </script>
 </body>
 </html>
