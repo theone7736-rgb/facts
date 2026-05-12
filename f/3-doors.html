@@ -119,22 +119,36 @@
 </ul>
 <p> Switching is always better (wonder why?)</p>
 </div>
+
+
+  
 <div class="section">
-<h2> Try it out yourself!</h2>
-<div id="monty-demo" style="background:white; padding:20px; border-radius:10px; margin-top:20px; text-align:center;">
+<div id="montyGame" style="text-align:center; background:white; padding:20px; border-radius:10px; margin-top:20px;">
 
-  <h2>🎯 Switching Demonstration</h2>
-  <p>This shows why switching always wins in this simplified model.</p>
+  <h2>🚪 Play the Game</h2>
+  <p>Pick a door. Then decide whether to stay or switch.</p>
 
-  <button onclick="runForcedSim()">Run 50 Demonstrations</button>
-  <button onclick="resetForced()">Reset</button>
+  <div style="display:flex; justify-content:center; gap:15px; margin:20px 0;">
+    <button class="door" onclick="pickDoor(0)">Door 1</button>
+    <button class="door" onclick="pickDoor(1)">Door 2</button>
+    <button class="door" onclick="pickDoor(2)">Door 3</button>
+  </div>
 
-  <p id="forcedResults" style="margin-top:15px; font-weight:bold;">
-    No runs yet.
-  </p>
+  <div id="actionButtons" style="display:none;">
+    <p>The host reveals a goat 🐐. Do you want to:</p>
+    <button onclick="finalChoice(false)">Stay</button>
+    <button onclick="finalChoice(true)">Switch</button>
+  </div>
+
+  <p id="gameMessage" style="margin-top:15px;"></p>
+
+  <p id="stats" style="margin-top:15px; font-weight:bold;"></p>
+
+  <button onclick="resetGame()">Reset Game</button>
 
 </div>
 </div>
+
 <!-- OUTCOMES SECTION -->
 <div class="section">
 <h2>🔍 All Possible Outcomes</h2>
@@ -210,43 +224,69 @@ The host then removes one wrong door <b>on purpose</b>, leaving all that probabi
 </div>
 
 <script>
-let runs = 0;
-let switchWins = 0;
+let prizeDoor;
+let playerPick = null;
+let revealedDoor = null;
 
-function forcedGame() {
-  // Player always picks Door 0
-  const player = 0;
+let wins = 0;
+let losses = 0;
 
-  // Force prize to be in one of the other doors
-  const possible = [1, 2];
-  const prize = possible[Math.floor(Math.random() * possible.length)];
+function newRound() {
+  prizeDoor = Math.floor(Math.random() * 3);
+  playerPick = null;
+  revealedDoor = null;
 
-  // Host reveals a goat door
-  const revealed = [0, 1, 2].find(i => i !== player && i !== prize);
-
-  // Switching always picks the prize (intentionally simplified model)
-  const switchedChoice = prize;
-
-  return switchedChoice === prize;
+  document.getElementById("actionButtons").style.display = "none";
+  document.getElementById("gameMessage").innerHTML = "";
 }
 
-function runForcedSim() {
-  for (let i = 0; i < 50; i++) {
-    runs++;
-    if (forcedGame()) switchWins++;
+function pickDoor(index) {
+  if (playerPick !== null) return;
+
+  playerPick = index;
+
+  // Host reveals a goat (not prize, not player pick)
+  let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
+  revealedDoor = options[Math.floor(Math.random() * options.length)];
+
+  document.getElementById("gameMessage").innerHTML =
+    `You picked Door ${index + 1}. The host reveals a goat 🐐 behind another door.`;
+
+  document.getElementById("actionButtons").style.display = "block";
+}
+
+function finalChoice(switchChoice) {
+  let finalPick = playerPick;
+
+  if (switchChoice) {
+    finalPick = [0,1,2].find(i => i !== playerPick && i !== revealedDoor);
   }
 
-  document.getElementById("forcedResults").innerHTML =
-    `Switch wins: ${switchWins} / ${runs} (100%)<br>
-     Staying would win: 0%`;
+  let result = finalPick === prizeDoor;
+
+  if (result) {
+    wins++;
+    document.getElementById("gameMessage").innerHTML = "🎉 You WIN!";
+  } else {
+    losses++;
+    document.getElementById("gameMessage").innerHTML = "😢 You lose.";
+  }
+
+  document.getElementById("stats").innerHTML =
+    `Wins: ${wins} | Losses: ${losses}`;
+
+  setTimeout(newRound, 2000);
 }
 
-function resetForced() {
-  runs = 0;
-  switchWins = 0;
-
-  document.getElementById("forcedResults").innerHTML = "No runs yet.";
+function resetGame() {
+  wins = 0;
+  losses = 0;
+  document.getElementById("stats").innerHTML = "";
+  newRound();
 }
+
+// start first round
+newRound();
   </script>
 </body>
 </html>
