@@ -126,18 +126,12 @@
 <div id="montyGame" style="text-align:center; background:white; padding:20px; border-radius:10px; margin-top:20px;">
 
   <h2>🚪 Play the Game</h2>
-  <p>Pick a door. Then decide to stay or switch.</p>
+  <p>Pick a door. Then click again to either stay or switch.</p>
 
   <div id="doors" style="display:flex; justify-content:center; gap:15px; margin:20px 0;">
     <div class="door" onclick="pickDoor(0)" id="d0">🚪</div>
     <div class="door" onclick="pickDoor(1)" id="d1">🚪</div>
     <div class="door" onclick="pickDoor(2)" id="d2">🚪</div>
-  </div>
-
-  <div id="actionButtons" style="display:none;">
-    <p>The host reveals a goat 🐐. Do you want to:</p>
-    <button onclick="finalChoice(false)">Stay</button>
-    <button onclick="finalChoice(true)">Switch</button>
   </div>
 
   <p id="gameMessage"></p>
@@ -225,6 +219,7 @@ The host then removes one wrong door <b>on purpose</b>, leaving all that probabi
 let prizeDoor;
 let playerPick = null;
 let revealedDoor = null;
+let stage = 0; // 0 = pick, 1 = decide
 
 let wins = 0;
 let losses = 0;
@@ -233,71 +228,78 @@ function newRound() {
   prizeDoor = Math.floor(Math.random() * 3);
   playerPick = null;
   revealedDoor = null;
+  stage = 0;
 
   for (let i = 0; i < 3; i++) {
-    const door = document.getElementById("d" + i);
-    door.innerHTML = "🚪";
-    door.style.pointerEvents = "auto";
+    const d = document.getElementById("d" + i);
+    d.innerHTML = "🚪";
+    d.style.background = "#4a6cf7";
+    d.style.pointerEvents = "auto";
   }
 
-  document.getElementById("actionButtons").style.display = "none";
-  document.getElementById("gameMessage").innerHTML = "";
+  document.getElementById("gameMessage").innerHTML =
+    "Pick a door.";
 }
 
 function pickDoor(index) {
-  if (playerPick !== null) return;
 
-  playerPick = index;
+  const door = document.getElementById("d" + index);
 
-  document.getElementById("gameMessage").innerHTML =
-    `You picked Door ${index + 1}.`;
+  // STEP 1: first pick
+  if (stage === 0) {
+    playerPick = index;
+    stage = 1;
 
-  // host chooses a goat door to reveal
-  let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
-  revealedDoor = options[Math.floor(Math.random() * options.length)];
+    document.getElementById("gameMessage").innerHTML =
+      `You picked Door ${index + 1}. Now the host reveals a goat...`;
 
-  // OPEN THE DOOR visually
-  const doorEl = document.getElementById("d" + revealedDoor);
-  doorEl.innerHTML = "🐐";
-  doorEl.style.background = "#ddd";
+    // host reveals goat
+    let options = [0,1,2].filter(i => i !== playerPick && i !== prizeDoor);
+    revealedDoor = options[Math.floor(Math.random() * options.length)];
 
-  document.getElementById("actionButtons").style.display = "block";
-}
+    const r = document.getElementById("d" + revealedDoor);
+    r.innerHTML = "🐐";
+    r.style.background = "#ddd";
 
-function finalChoice(switchChoice) {
-  let finalPick = playerPick;
-
-  if (switchChoice) {
-    finalPick = [0,1,2].find(i => i !== playerPick && i !== revealedDoor);
+    return;
   }
 
-  // reveal all doors
-  for (let i = 0; i < 3; i++) {
-    const door = document.getElementById("d" + i);
+  // STEP 2: final decision by clicking a door
+  if (stage === 1) {
 
-    if (i === prizeDoor) {
-      door.innerHTML = "🚗";
-    } else {
-      door.innerHTML = "🐐";
+    // ignore revealed door clicks
+    if (index === revealedDoor) return;
+
+    let finalPick = index;
+
+    // reveal all doors
+    for (let i = 0; i < 3; i++) {
+      const d = document.getElementById("d" + i);
+
+      if (i === prizeDoor) {
+        d.innerHTML = "🚗";
+      } else {
+        d.innerHTML = "🐐";
+      }
+
+      d.style.pointerEvents = "none";
     }
 
-    door.style.pointerEvents = "none";
+    let win = finalPick === prizeDoor;
+
+    if (win) {
+      wins++;
+      document.getElementById("gameMessage").innerHTML = "🎉 You WIN!";
+    } else {
+      losses++;
+      document.getElementById("gameMessage").innerHTML = "😢 You lose.";
+    }
+
+    document.getElementById("stats").innerHTML =
+      `Wins: ${wins} | Losses: ${losses}`;
+
+    setTimeout(newRound, 2500);
   }
-
-  let win = finalPick === prizeDoor;
-
-  if (win) {
-    wins++;
-    document.getElementById("gameMessage").innerHTML = "🎉 You WIN!";
-  } else {
-    losses++;
-    document.getElementById("gameMessage").innerHTML = "😢 You lose.";
-  }
-
-  document.getElementById("stats").innerHTML =
-    `Wins: ${wins} | Losses: ${losses}`;
-
-  setTimeout(newRound, 2500);
 }
 
 newRound();
