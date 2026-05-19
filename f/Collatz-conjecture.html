@@ -147,7 +147,7 @@ function runCollatz() {
     let explain = document.getElementById("liveExplain");
 
     if (isNaN(n) || n <= 0) {
-        output.textContent = "Please enter a positive integer.";
+        output.textContent = "Error. Try adding a smaller number instead...";
         explain.textContent = "Waiting for a valid number...";
         return;
     }
