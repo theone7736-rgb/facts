@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kaprekar's Constant Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+            background-color: #d0d8f5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background: #0046b8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: #eee;
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .stepExplain {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e8f0ff;
+            border-left: 4px solid #0046b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Kaprekar's Constant Explorer</h1>
+    <div><a href="https://facts.edodnan.com.au">Want to see the rest? Click here.</a></div>
+
+    <input id="num" type="number" placeholder="Enter a 4-digit number">
+
+    <button onclick="runKaprekar()">Run Kaprekar</button>
+
+    <div class="output" id="output"></div>
+
+    <div class="stepExplain" id="liveExplain">
+        Enter a 4-digit number and click “Run Kaprekar” to see step-by-step reasoning here.
+    </div>
+
+    <div class="explanation">
+        <h3>What is happening?</h3>
+
+        <p>
+            This tool follows a mathematical process called <b>Kaprekar’s Routine</b>.
+        </p>
+
+        <p><b>The rule is:</b></p>
+        <ul>
+            <li>Choose a 4-digit number (at least 2 digits must be different)</li>
+            <li>Arrange digits in descending order</li>
+            <li>Arrange digits in ascending order</li>
+            <li>Subtract the smaller number from the larger</li>
+            <li>Repeat the process</li>
+        </ul>
+
+        <h3>Why this is interesting</h3>
+
+        <p>
+            Almost every valid number will eventually reach the same result:
+        </p>
+
+        <p><b>6174</b></p>
+
+        <p>
+            Once it reaches 6174, it stays there forever:
+        </p>
+
+        <p><b>7641 − 1467 = 6174</b></p>
+
+        <h3>What this program shows you</h3>
+
+        <ol>
+            <li>Each step of the process</li>
+            <li>How the digits are rearranged</li>
+            <li>How many steps it takes to reach 6174</li>
+        </ol>
+
+        <p>
+            This constant was discovered by Kaprekar, and it behaves like a mathematical “black hole” — numbers always fall into it.
+        </p>
+    </div>
+</div>
+
+<script>
+function runKaprekar() {
+    let num = document.getElementById("num").value;
+    let output = document.getElementById("output");
+    let explain = document.getElementById("liveExplain");
+
+    if (num.length !== 4) {
+        output.textContent = "Please enter a valid 4-digit number.";
+        explain.textContent = "Waiting for a valid number...";
+        return;
+    }
+
+    if (/^(\d)\1+$/.test(num)) {
+        output.textContent = "All digits cannot be the same.";
+        explain.textContent = "Try a number with at least 2 different digits.";
+        return;
+    }
+
+    let steps = "";
+    let count = 0;
+
+    explain.textContent = "Starting with " + num + "...";
+
+    while (num !== "6174") {
+        let digits = num.split("");
+
+        let asc = digits.slice().sort().join("");
+        let desc = digits.slice().sort().reverse().join("");
+
+        let result = (parseInt(desc) - parseInt(asc)).toString().padStart(4, "0");
+
+        steps += desc + " - " + asc + " = " + result + "\n";
+
+        explain.textContent =
+            "Rearrange digits: " + desc + " (largest) and " + asc +
+            " (smallest), then subtract → " + result;
+
+        num = result;
+        count++;
+
+        if (count > 20) {
+            steps += "\nStopped (too many steps).";
+            explain.textContent = "Stopped early.";
+            break;
+        }
+    }
+
+    if (num === "6174") {
+        steps += "\nReached 6174!\nTotal steps: " + count;
+        explain.textContent = "Finished! Reached Kaprekar’s Constant (6174) in " + count + " steps.";
+    }
+
+    output.textContent = steps;
+}
+</script>
+
+</body>
+</html>
