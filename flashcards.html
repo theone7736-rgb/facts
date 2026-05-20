@@ -43,8 +43,22 @@ text-align: center;
   <p>Top facts: </p>
 <div style="margin-bottom: 20px" class="flashcard">
 <div class="card">
-<div id="question" class="question"></div>
-<div id="answer" class="answer"></div>
+<div id="Qbiolog" class="question"></div>
+<div id="Abiology" class="answer"></div>
+
+<div class="rightleft">
+<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard()">⬅</button>
+<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard()">➡</button>
+</div>
+</div>
+</div>
+
+
+   <p>Top facts: </p>
+<div style="margin-bottom: 20px" class="flashcard">
+<div class="card">
+<div id="Q" class="question"></div>
+<div id="Aall" class="answer"></div>
 
 <div class="rightleft">
 <button style="font-size: 30px; margin-right: 5px;" onclick="prevCard()">⬅</button>
@@ -71,8 +85,42 @@ text-align: center;
 let index = 0;
 
 function updateCard() {
-  document.getElementById("question").textContent = flashcards[index].q;
-  document.getElementById("answer").textContent = flashcards[index].a;
+  document.getElementById("Qall").textContent = flashcards[index].q;
+  document.getElementById("Aall").textContent = flashcards[index].a;
+}
+
+function nextCard() {
+  index = (index + 1) % flashcards.length;
+  updateCard();
+}
+
+function prevCard() {
+  index = (index - 1 + flashcards.length) % flashcards.length;
+  updateCard();
+}
+
+updateCard();
+</script>
+
+
+<script>
+  const flashcards = [
+  { q: "Did you know:", a: "Forty is the only number spelled with letters in alphabetical order?" },
+  { q: "Did you know:", a: "Every odd number has an 'e' in it?" },
+  { q: "Did you know:", a: "A cloud weighs around a million tonnes." },
+  { q: "Did you know:", a: "Identical twins don’t have the same fingerprints." },
+  { q: "Did you know:", a: "99.9% of the DNA of each person is the same." },
+{ q: "Did you know:", a: "The brain cannot feel pain." },
+{ q: "Did you know:", a: "Axolotls can regenerate limbs." },
+  { q: "Did you know:", a: "There are approximately 5,681,040 people who are born on the 29th of February." },
+{ q: "Did you know:", a: "Only hummingbirds can fly backwards." }
+];
+
+let index = 0;
+
+function updateCard() {
+  document.getElementById("Qbiology").textContent = flashcards[index].q;
+  document.getElementById("Abiology").textContent = flashcards[index].a;
 }
 
 function nextCard() {
