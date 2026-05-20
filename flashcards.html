@@ -47,8 +47,8 @@ text-align: center;
 <div id="Aall" class="answer"></div>
 
 <div class="rightleft">
-<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard()">⬅</button>
-<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard()">➡</button>
+<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard(0)">⬅</button>
+<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard(0)">➡</button>
 </div>
 </div>
 </div>
@@ -61,8 +61,8 @@ text-align: center;
 <div id="Abiology" class="answer"></div>
 
 <div class="rightleft">
-<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard()">⬅</button>
-<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard()">➡</button>
+<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard(1)">⬅</button>
+<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard(1)">➡</button>
 </div>
 </div>
 </div>
@@ -89,12 +89,12 @@ function updateCard() {
   document.getElementById("Aall").textContent = flashcards[index].a;
 }
 
-function nextCard() {
+function nextCard(0) {
   index = (index + 1) % flashcards.length;
   updateCard();
 }
 
-function prevCard() {
+function prevCard(0) {
   index = (index - 1 + flashcards.length) % flashcards.length;
   updateCard();
 }
@@ -126,12 +126,12 @@ function updateCard() {
   document.getElementById("Abiology").textContent = flashcards[index].a;
 }
 
-function nextCard() {
+function nextCard(1) {
   index = (index + 1) % flashcards.length;
   updateCard();
 }
 
-function prevCard() {
+function prevCard(1) {
   index = (index - 1 + flashcards.length) % flashcards.length;
   updateCard();
 }
