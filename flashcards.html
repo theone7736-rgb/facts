@@ -47,8 +47,8 @@ text-align: center;
 <div id="Aall" class="answer"></div>
 
 <div class="rightleft">
-<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard(0)">⬅</button>
-<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard(0)">➡</button>
+<button style="font-size: 30px; margin-right: 5px;" onclick="prevCardAll()">⬅</button>
+<button style="font-size: 30px; margin-left: 5px;" onclick="nextCardAll()">➡</button>
 </div>
 </div>
 </div>
@@ -61,8 +61,8 @@ text-align: center;
 <div id="Abiology" class="answer"></div>
 
 <div class="rightleft">
-<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard(1)">⬅</button>
-<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard(1)">➡</button>
+<button style="font-size: 30px; margin-right: 5px;" onclick="prevCardBio()">⬅</button>
+<button style="font-size: 30px; margin-left: 5px;" onclick="nextCardBio()">➡</button>
 </div>
 </div>
 </div>
@@ -70,7 +70,7 @@ text-align: center;
 
 
 <script>
-  const flashcards = [
+  const flashcardsAll = [
   { q: "Did you know:", a: "Forty is the only number spelled with letters in alphabetical order?" },
   { q: "Did you know:", a: "Every odd number has an 'e' in it?" },
   { q: "Did you know:", a: "A cloud weighs around a million tonnes." },
@@ -82,29 +82,29 @@ text-align: center;
 { q: "Did you know:", a: "Only hummingbirds can fly backwards." }
 ];
 
-let index = 0;
+let indexAll = 0;
 
-function updateCard() {
-  document.getElementById("Qall").textContent = flashcards[index].q;
-  document.getElementById("Aall").textContent = flashcards[index].a;
+function updateAll() {
+  document.getElementById("Qall").textContent = flashcardsAll[indexAll].q;
+  document.getElementById("Aall").textContent = flashcardsAll[indexAll].a;
 }
 
-function nextCard(0) {
-  index = (index + 1) % flashcards.length;
-  updateCard();
+function nextCardAll() {
+  indexAll = (indexAll + 1) % flashcardsAll.length;
+  updateAll();
 }
 
-function prevCard(0) {
-  index = (index - 1 + flashcards.length) % flashcards.length;
-  updateCard();
+function prevCardAll() {
+  indexAll = (indexAll - 1 + flashcardsAll.length) % flashcardsAll.length;
+  updateAll();
 }
 
-updateCard();
+updateAll();
 </script>
 
 
 <script>
-  const flashcards = [
+  const flashcardsBio = [
  { q: "Did you know:", a: "Seahorses have no stomachs?" },
 { q: "Did you know:", a: "Male seahorses give birth to baby seahorses, not the females?" },
 { q: "Did you know:", a: "A dolphin is a kind of whale?" },
@@ -119,22 +119,23 @@ updateCard();
 { q: "Did you know:", a: "Only hummingbirds can fly backwards?" }
 ];
 
-let index = 0;
 
-function updateCard() {
-  document.getElementById("Qbiology").textContent = flashcards[index].q;
-  document.getElementById("Abiology").textContent = flashcards[index].a;
+let indexBio = 0;
+
+function updateBio() {
+  document.getElementById("Qbiology").textContent = flashcardsBio[indexBio].q;
+  document.getElementById("Abiology").textContent = flashcardsBio[indexBio].a;
 }
 
-function nextCard(1) {
-  index = (index + 1) % flashcards.length;
-  updateCard();
+function nextCardBio() {
+  indexBio = (indexBio + 1) % flashcardsBio.length;
+  updateBio();
 }
 
-function prevCard(1) {
-  index = (index - 1 + flashcards.length) % flashcards.length;
-  updateCard();
+function prevCardBio() {
+  indexBio = (indexBio - 1 + flashcardsBio.length) % flashcardsBio.length;
+  updateBio();
 }
 
-updateCard();
+updateBio();
 </script>
