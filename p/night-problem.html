@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Knight's Tour</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 20px;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    .panel {
+      width: fit-content;
+      margin: auto;
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 65px);
+      margin: 20px auto;
+      width: fit-content;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    .cell {
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .white { background: #e2e8f0; }
+    .black { background: #475569; }
+
+    .cell:hover {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    .visited {
+      background: #22c55e !important;
+      color: white;
+      font-weight: bold;
+    }
+
+    .valid {
+      outline: 3px solid #facc15;
+      box-shadow: 0 0 15px #facc15;
+    }
+
+    button {
+      margin: 8px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      background: #334155;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #475569;
+      transform: translateY(-2px);
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>♞ Knight’s Tour</h2>
+<div><a href="https://facts.edodnan.com.au">Want to see the rest? Click here.</a></div>
+<div class="panel">
+  <button onclick="resetGame()">Reset</button>
+  <button onclick="showSolution()">Show Solution</button>
+
+  <div id="board" class="board"></div>
+  <div id="status">Moves: 1</div>
+</div>
+
+<script>
+const size = 8;
+
+const moves = [
+  [2,1],[1,2],[-1,2],[-2,1],
+  [-2,-1],[-1,-2],[1,-2],[2,-1]
+];
+
+let board = [];
+let knight = {x:0,y:0};
+let moveCount = 1;
+let showingSolution = false;
+
+// Precomputed solution
+const solution = [
+  [0,59,38,33,30,17,8,63],
+  [37,34,31,60,9,62,29,16],
+  [58,1,36,39,32,27,18,7],
+  [35,48,41,26,61,10,15,28],
+  [42,57,2,49,40,23,6,19],
+  [47,50,45,54,25,20,11,14],
+  [56,43,52,3,22,13,24,5],
+  [51,46,55,44,53,4,21,12]
+];
+
+const boardDiv = document.getElementById("board");
+
+// build board
+for (let y=0;y<size;y++) {
+  board[y]=[];
+  for (let x=0;x<size;x++) {
+
+    const cell=document.createElement("div");
+    cell.className="cell " + ((x+y)%2===0?"white":"black");
+    cell.onclick=()=>moveKnight(x,y);
+
+    board[y][x]={visited:false,el:cell};
+
+    boardDiv.appendChild(cell);
+  }
+}
+
+// start
+board[0][0].visited=true;
+
+// check move
+function isValidMove(x,y){
+  for(let [dx,dy] of moves){
+    if(knight.x+dx===x && knight.y+dy===y){
+      return !board[y][x].visited;
+    }
+  }
+  return false;
+}
+
+// move
+function moveKnight(x,y){
+  if(showingSolution) return;
+  if(!isValidMove(x,y)) return;
+
+  knight={x,y};
+  board[y][x].visited=true;
+  moveCount++;
+
+  render();
+
+  if(moveCount===64){
+    document.getElementById("status").textContent=
+    "🎉 Tour Complete!";
+  }
+}
+
+// valid moves
+function getValidMoves(){
+  let valid=[];
+  for(let [dx,dy] of moves){
+    let nx=knight.x+dx;
+    let ny=knight.y+dy;
+    if(nx>=0&&ny>=0&&nx<8&&ny<8&&!board[ny][nx].visited){
+      valid.push([nx,ny]);
+    }
+  }
+  return valid;
+}
+
+// render
+function render(solutionMode=false){
+
+  for(let y=0;y<size;y++){
+    for(let x=0;x<size;x++){
+
+      let cell=board[y][x];
+      cell.el.classList.remove("visited","valid");
+      cell.el.textContent="";
+
+      if(solutionMode){
+        cell.el.textContent=solution[y][x];
+      } else {
+
+        if(cell.visited){
+          cell.el.classList.add("visited");
+        }
+
+        if(x===knight.x && y===knight.y){
+          cell.el.textContent="♞";
+        }
+      }
+    }
+  }
+
+  if(!solutionMode){
+    for(let [vx,vy] of getValidMoves()){
+      board[vy][vx].el.classList.add("valid");
+    }
+
+    document.getElementById("status").textContent=
+      "Moves: " + moveCount;
+  }
+}
+
+// reset
+function resetGame(){
+  knight={x:0,y:0};
+  moveCount=1;
+  showingSolution=false;
+
+  for(let y=0;y<size;y++){
+    for(let x=0;x<size;x++){
+      board[y][x].visited=false;
+    }
+  }
+
+  board[0][0].visited=true;
+  render();
+}
+
+// solution
+function showSolution(){
+  showingSolution=true;
+  render(true);
+  document.getElementById("status").textContent=
+    "Showing full solution";
+}
+
+render();
+</script>
+
+</body>
+</html>
