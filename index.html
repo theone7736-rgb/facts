@@ -1,173 +1,330 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title> Facts from Edodnan </title>
-<style>
-.puzzles {
-.see-more-flashcards {
-width: 230px;
-}
-width: 200px;
-height: 40px;
-font-size: 15px;
-background-color: #0046b8;
-border-radius: 15px;
-color: white;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facts from Edodnan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-display: flex;
-    align-items: center;  /* centers text inside button vertically */
-    justify-content: center;
-}
-.rightleft {
-display: flex;
-justify-content: center;
-}
-.flashcard {
-display: flex;
-align-items: center;  /* centers text inside button vertically */
-justify-content: center;
-}
-.question {
-font-size: 35px;
-text-align: center;
-}
-.card {
-height: 200px;
-padding: 10px;
-border-radius: 15px;
-width: 500px;
-border: 5px solid blue;
-}
-.answer {
-height: 80px;
-font-size: 23px;
-color: blue;
-text-align: center;
-}
-a {
-    display: block;
-    margin: 5px 0;
-    font-size: 20px;
-}
-body {
-    font-family: Tahoma, Verdana, sans-serif;
-    margin: 0;
-    padding:10px 30px;
-}
+        body {
+            font-family: Tahoma, Verdana, sans-serif;
+            padding: 10px 30px;
+            background-color: #f5f5f5;
+        }
 
-.butten {
-    font-weight: bold;
-    font-size:40px;
-    height: 100px;
-    width: 300px;
-    background-color: #0046b8;
-    color: black;
-    border-radius:15px;
-    margin: 10px auto;    /* centers the button box horizontally */
-    display: flex;
-    align-items: center;  /* centers text inside button vertically */
-    justify-content: center;
-}
+        h1 {
+            text-align: center;
+            font-size: 50px;
+            margin-top: 150px;
+            margin-bottom: 30px;
+        }
 
-.list {
-border: 1px solid black;
-padding: 10px;
-border-radius: 15px;
-}
-</style>
+        h1:first-of-type {
+            margin-top: 0;
+        }
+
+        a {
+            display: block;
+            margin: 5px 0;
+            font-size: 20px;
+            color: #0046b8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .button {
+            font-weight: bold;
+            font-size: 40px;
+            height: 100px;
+            width: 300px;
+            background-color: #0046b8;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #003399;
+        }
+
+        /* List Section */
+        .list {
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            background-color: white;
+        }
+
+        .list p {
+            margin-bottom: 15px;
+        }
+
+        /* Flexbox Utilities */
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Puzzle Section */
+        .puzzle-card {
+            text-align: center;
+        }
+
+        .puzzle-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .puzzle-card img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .puzzle-emoji {
+            font-size: 200px;
+            line-height: 1;
+        }
+
+        /* Flashcard Section */
+        .flashcard-container {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            height: 200px;
+            padding: 10px;
+            border-radius: 15px;
+            width: 500px;
+            border: 5px solid blue;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .question {
+            font-size: 35px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            height: 80px;
+            font-size: 23px;
+            color: blue;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .card-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .card-button {
+            font-size: 30px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #0046b8;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .card-button:hover {
+            background-color: #003399;
+        }
+
+        /* See More Flashcards */
+        .see-more-flashcards {
+            width: 230px;
+            height: 40px;
+            font-size: 15px;
+            background-color: #0046b8;
+            border-radius: 15px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-more-flashcards:hover {
+            background-color: #003399;
+        }
+
+        .see-more-flashcards a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .see-more-flashcards a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 35px;
+            }
+
+            .button {
+                font-size: 30px;
+                width: 250px;
+                height: 80px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .puzzle-card img {
+                width: 200px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<h1 style="text-align: center; font-size:50px;">Fun facts</h1>
-<div id="myButton" style="margin-bottom: 50px;" class="butten">Click here!!!</div>
-<div class="list">
-<p>Want to find your faverout one? I have a list for you.</p>
-<a href="https://facts.edodnan.com.au/f/four-fours.html">1. Four fours puzzle</a>
-<a href="https://facts.edodnan.com.au/f/Collatz-conjecture.html">2. Collatz conjecture </a>
-<a href="https://facts.edodnan.com.au/f/Bertrands-postulate.html">3. Bertrands postulate</a>
-<a href="https://facts.edodnan.com.au/f/23birthday.html">4. 23 Birthdays </a>
-<a href="https://facts.edodnan.com.au/f/3-doors.html">5. The three doors/monty hall problem. </a>
-<a href="https://facts.edodnan.com.au/f/Kaprekar's-Constant.html">6. Kaprekar's Constraint</a>
-<a href="https://facts.edodnan.com.au/"> </a>
-<a href="https://facts.edodnan.com.au/"> </a>
-<a href="https://facts.edodnan.com.au/"> </a>
-<a href="https://facts.edodnan.com.au/"> </a>
-</div>
+    <!-- Header -->
+    <h1>Fun facts</h1>
     
-<h1 style="margin-top: 150px; text-align: center; font-size:50px;">Puzzles</h1>
-<div class="flashcard">
-<a href="/p/knights-problem.html"><h3>The knight problem</h3><img style="width: 300px;" src="ph/Knight.jpg"></a>
-<a href="p/number.html"><h3>The number problem</h3><h1 style="font-size: 200px;">1️⃣</h1> </a> 
-</div>
-    
-<h1 style="margin-top: 150px; text-align: center; font-size:50px;">Flashcards</h1>
-<div style="margin-bottom: 20px" class="flashcard">
-<div class="card">
-<div id="question" class="question"></div>
-<div id="answer" class="answer"></div>
+    <!-- Random Link Button -->
+    <button id="randomButton" class="button">Click here!!!</button>
 
-<div class="rightleft">
-<button style="font-size: 30px; margin-right: 5px;" onclick="prevCard()">⬅</button>
-<button style="font-size: 30px; margin-left: 5px;" onclick="nextCard()">➡</button>
-</div>
-</div>
-</div>
-    
-<div style="margin-bottom: 100px" class="flashcard">
-<div class="see-more-flashcards">
-<p><a style="color: white; text-decoration: none;" href="https://facts.edodnan.com.au/flashcards.html">See more flashcards</a></p>
-</div>
-</div>
+    <!-- Facts List -->
+    <div class="list">
+        <p>Want to find your favorite one? I have a list for you.</p>
+        <a href="https://facts.edodnan.com.au/f/four-fours.html">1. Four fours puzzle</a>
+        <a href="https://facts.edodnan.com.au/f/Collatz-conjecture.html">2. Collatz conjecture</a>
+        <a href="https://facts.edodnan.com.au/f/Bertrands-postulate.html">3. Bertrands postulate</a>
+        <a href="https://facts.edodnan.com.au/f/23birthday.html">4. 23 Birthdays</a>
+        <a href="https://facts.edodnan.com.au/f/3-doors.html">5. The three doors/monty hall problem</a>
+        <a href="https://facts.edodnan.com.au/f/Kaprekar's-Constant.html">6. Kaprekar's Constant</a>
+    </div>
+
+    <!-- Puzzles Section -->
+    <h1>Puzzles</h1>
+    <div class="flex-row">
+        <a href="/p/knights-problem.html" class="puzzle-card">
+            <h3>The knight problem</h3>
+            <img src="ph/Knight.jpg" alt="Knight Chess Piece">
+        </a>
+        <a href="/p/number.html" class="puzzle-card">
+            <h3>The number problem</h3>
+            <div class="puzzle-emoji">1️⃣</div>
+        </a>
+    </div>
+
+    <!-- Flashcards Section -->
+    <h1>Flashcards</h1>
+    <div class="flex-center flashcard-container">
+        <div class="card">
+            <div id="question" class="question"></div>
+            <div id="answer" class="answer"></div>
+            <div class="card-controls">
+                <button class="card-button" onclick="prevCard()" aria-label="Previous card">⬅</button>
+                <button class="card-button" onclick="nextCard()" aria-label="Next card">➡</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- See More Flashcards -->
+    <div class="flex-center" style="margin-bottom: 100px;">
+        <button class="see-more-flashcards">
+            <a href="https://facts.edodnan.com.au/flashcards.html">See more flashcards</a>
+        </button>
+    </div>
+
+    <!-- Flashcard Data and Logic -->
+    <script>
+        const flashcards = [
+            { q: "Did you know:", a: "Forty is the only number spelled with letters in alphabetical order?" },
+            { q: "Did you know:", a: "Every odd number has an 'e' in it?" },
+            { q: "Did you know:", a: "A cloud weighs around a million tonnes." },
+            { q: "Did you know:", a: "Identical twins don't have the same fingerprints." },
+            { q: "Did you know:", a: "99.9% of the DNA of each person is the same." },
+            { q: "Did you know:", a: "The brain cannot feel pain." },
+            { q: "Did you know:", a: "Axolotls can regenerate limbs." },
+            { q: "Did you know:", a: "There are approximately 5,681,040 people who are born on the 29th of February." },
+            { q: "Did you know:", a: "Only hummingbirds can fly backwards." }
+        ];
+
+        let currentIndex = 0;
+
+        function updateCard() {
+            const card = flashcards[currentIndex];
+            document.getElementById("question").textContent = card.q;
+            document.getElementById("answer").textContent = card.a;
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % flashcards.length;
+            updateCard();
+        }
+
+        function prevCard() {
+            currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+            updateCard();
+        }
+
+        // Initialize first card
+        updateCard();
+    </script>
+
+    <!-- Random Link Button Logic -->
+    <script>
+        const randomLinks = [
+            "https://facts.edodnan.com.au/f/four-fours.html",
+            "https://facts.edodnan.com.au/f/23birthday.html",
+            "https://facts.edodnan.com.au/f/Collatz-conjecture.html",
+            "https://facts.edodnan.com.au/f/Kaprekar's-Constant.html",
+            "https://facts.edodnan.com.au/f/Bertrands-postulate.html"
+        ];
+
+        function navigateToRandomLink() {
+            const randomIndex = Math.floor(Math.random() * randomLinks.length);
+            window.location.href = randomLinks[randomIndex];
+        }
+
+        document.getElementById("randomButton").addEventListener("click", navigateToRandomLink);
+    </script>
 </body>
-
-<script>
-const flashcards = [
-  { q: "Did you know:", a: "Forty is the only number spelled with letters in alphabetical order?" },
-  { q: "Did you know:", a: "Every odd number has an 'e' in it?" },
-  { q: "Did you know:", a: "A cloud weighs around a million tonnes." },
-  { q: "Did you know:", a: "Identical twins don’t have the same fingerprints." },
-  { q: "Did you know:", a: "99.9% of the DNA of each person is the same." },
-{ q: "Did you know:", a: "The brain cannot feel pain." },
-{ q: "Did you know:", a: "Axolotls can regenerate limbs." },
-{ q: "Did you know:", a: "There are approximately 5,681,040 people who are born on the 29th of February." },
-{ q: "Did you know:", a: "Only hummingbirds can fly backwards." }
-];
-
-let index = 0;
-
-function updateCard() {
-  document.getElementById("question").textContent = flashcards[index].q;
-  document.getElementById("answer").textContent = flashcards[index].a;
-}
-
-function nextCard() {
-  index = (index + 1) % flashcards.length;
-  updateCard();
-}
-
-function prevCard() {
-  index = (index - 1 + flashcards.length) % flashcards.length;
-  updateCard();
-}
-
-updateCard();
-</script>
-<script>
-const links = [
-    "https://facts.edodnan.com.au/f/four-fours.html",
-    "https://facts.edodnan.com.au/f/23birthday.html",
-    "https://facts.edodnan.com.au/f/Collatz-conjecture.html",
-    "https://facts.edodnan.com.au/f/Kaprekar's-Constant.html",
-    "https://facts.edodnan.com.au/f/Bertrands-postulate.html"
-];
-
-function randomLink() {
-    const randomIndex = Math.floor(Math.random() * links.length);
-    window.location.href = links[randomIndex];
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("myButton").addEventListener("click", randomLink);
-});
-</script>
 </html>
