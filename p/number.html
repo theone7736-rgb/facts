@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number Trick Puzzle</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      padding: 30px 10px 10px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      width: 60%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #5a67d8;
+      transform: scale(1.05);
+    }
+
+    #steps {
+      margin-top: 15px;
+      line-height: 1.8;
+    }
+
+    #result {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #5a67d8;
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: 0.6s;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .highlight {
+      background: #f3f4ff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>🧠 Magic Number Puzzle</h1>
+
+<div class="container">
+
+  <div class="card">
+    <h2>How It Works</h2>
+    <ol>
+      <li>Multiply your number by 2</li>
+      <li>Add 10</li>
+      <li>Divide by 2</li>
+      <li>Subtract your original number</li>
+    </ol>
+    <p><strong>You will always get 5!</strong></p>
+  </div>
+
+  <div class="card">
+    <h2>Example</h2>
+    <p>Try 8:</p>
+    <p>8 → 16 → 26 → 13 → <strong>5</strong></p>
+  </div>
+
+  <div class="card">
+    <h2>Try It Yourself</h2>
+    <input type="number" id="numInput" placeholder="Enter any number">
+    <br>
+    <button onclick="doMagic()">Reveal the Magic ✨</button>
+
+    <div id="steps"></div>
+    <div id="result"></div>
+  </div>
+
+  <div class="card hidden" id="explanation">
+    <h2>Math Proof</h2>
+    <p>Let your number be <strong>x</strong>:</p>
+    <p>2x → 2x + 10 → (2x + 10)/2 → x + 5 → 5</p>
+  </div>
+
+  <div class="card hidden" id="why">
+    <h2>Why This Works</h2>
+    <ul>
+      <li>×2 and ÷2 cancel each other</li>
+      <li>+10 becomes +5 after dividing</li>
+      <li>Subtracting your number removes it completely</li>
+    </ul>
+    <p><strong>So it secretly becomes: number + 5 − number = 5</strong></p>
+  </div>
+
+  <!-- NEW FINAL SECTION -->
+  <div class="card hidden" id="deepWhy">
+    <h2>🧩 Why It REALLY Works (Intuition)</h2>
+    <p>
+      This trick is designed to <strong>hide a simple operation inside extra steps</strong>.
+    </p>
+
+    <div class="highlight">
+      The only real thing happening is:<br><br>
+      <strong>+10 → then ÷2 → becomes +5</strong>
+    </div>
+
+    <p>
+      Everything else is just there to cancel out your number:
+    </p>
+
+    <ul>
+      <li>Multiplying by 2 is undone by dividing by 2</li>
+      <li>Subtracting your number removes it entirely</li>
+    </ul>
+
+    <p>
+      So no matter what number you start with, the process strips it away and leaves behind only the hidden constant.
+    </p>
+
+    <p class="highlight">
+      👉 It’s not guessing your number… it’s <strong>ignoring it completely</strong>.
+    </p>
+  </div>
+
+</div>
+
+<script>
+function doMagic() {
+  let num = Number(document.getElementById("numInput").value);
+
+  if (isNaN(num)) {
+    document.getElementById("result").innerText = "Enter a valid number!";
+    return;
+  }
+
+  let step1 = num * 2;
+  let step2 = step1 + 10;
+  let step3 = step2 / 2;
+  let final = step3 - num;
+
+  document.getElementById("steps").innerHTML =
+    num + " × 2 = " + step1 + "<br>" +
+    step1 + " + 10 = " + step2 + "<br>" +
+    step2 + " ÷ 2 = " + step3 + "<br>" +
+    step3 + " − " + num + " = " + final;
+
+  document.getElementById("result").innerText =
+    "Result: " + final;
+
+  // Reveal all explanation sections
+  document.getElementById("explanation").classList.add("show");
+  document.getElementById("why").classList.add("show");
+  document.getElementById("deepWhy").classList.add("show");
+}
+</script>
+
+</body>
+</html>
